@@ -3,7 +3,10 @@
     <div id="nav mb-4">
       <div>
         <b-navbar toggleable="lg" type="dark" variant="info">
-          <b-navbar-brand href="#">BBB 2024</b-navbar-brand>
+          <b-navbar-brand href="#">
+            <img src="@/assets/logo_globo-16.png" class="d-inline-block align-top" alt="Kitten">
+            BBB 2024
+          </b-navbar-brand>
 
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -25,6 +28,10 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  width: 27px;
 }
 
 .link {

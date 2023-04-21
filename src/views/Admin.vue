@@ -1,37 +1,50 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
-        <UserCard 
-        name="Luis Miguel" 
-        descripition="Some quick example text to build on the card title and make up the bulk of the card's content." 
-        avatar="https://avatars.githubusercontent.com/u/35848866?v=4"
-        :nameId="1"
-        :age="28"
+    <div v-for="pessoa in candidatos" :key="pessoa.id" class="row justify-content-center">
+      <UserCard 
+        :name="pessoa.nome" 
+        :descripition="pessoa.sobre" 
+        :avatar="pessoa.avatar_url"
+        :nameId="pessoa.id"
+        :age="pessoa.idade"
+        v-on:deleteCandidato="submitDelete"
         />
     </div>
 
-    <div class="row justify-content-center">
-        <UserCard 
-        name="Luis Miguel" 
-        descripition="Some quick example text to build on the card title and make up the bulk of the card's content." 
-        avatar="https://avatars.githubusercontent.com/u/35848866?v=4"
-        :nameId="2"
-        :age="34"
-        />
+    <div v-show="candidatos.length == 0" class="row justify-content-center text-center p-3">
+      <h4>Sem candidatos inscritos</h4>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import UserCard from '@/components/UserCard.vue'
+import api from '@/api.js'
 
 export default {
   name: 'Admin',
   components: {
-    HelloWorld,
     UserCard
+  },
+  data() {
+    return {
+      candidatos: []
+    }
+  },
+  beforeCreate() {
+    api.get('/api/candidatos').then( (response ) => {
+      this.candidatos = response.data
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
+  methods: {
+    submitDelete(nameId){
+      this.candidatos = this.candidatos.filter( (candidato) => {
+        return candidato.id !== nameId
+      } )
+    }
   }
 }
 </script>
