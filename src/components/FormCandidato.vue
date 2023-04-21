@@ -64,10 +64,16 @@
     <div class="buttons" v-show="!show">
         <b-button class="mx-1" type="reset" variant="primary" @click="novo()">Novo Cadastro</b-button>
     </div>
+
+    <div v-if="success" class="text-center app-success">
+      <p>Candidato cadastrado</p>
+    </div>
   </div>
 </template>
 
 <script>
+import api from '@/api.js'
+
   export default {
     data() {
       return {
@@ -80,14 +86,20 @@
         },
         avatar_default: "https://blog.m2br.com/wp-content/uploads/2021/02/robo-bbb.jpg",
         foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        show: false
+        show: false,
+        success: false
       }
     },
     methods: {
       onSubmit(event) {
         event.preventDefault()
-        this.show = false
-        alert(JSON.stringify(this.form))
+        api.post('/api/candidatos', this.form).then( () => {
+          this.show = false
+          this.success = true
+        }).catch(err => {
+          console.log(err)
+          alert(`Erro ao criar uma incrição: ${err.message}`)
+        })
       },
       onReset(event) {
         if (event){
@@ -127,6 +139,26 @@
     display: flex;
     justify-content: center;
     padding: 1em;
+}
+
+@keyframes myAnimation{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    display: none;
+    opacity: 0;
+  }
+}
+
+.app-success {
+  width: 60%;
+  margin: auto;
+  background-color: rgba(40, 167, 69, 0.7);
+  padding-top: 3px;
+  animation-name: myAnimation;
+  animation-duration: 4000ms;
+  animation-fill-mode: forwards;
 }
 
 </style>>

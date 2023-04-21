@@ -41,8 +41,19 @@ export default {
   },
   methods: {
     submitDelete(nameId){
+      var resposta = confirm("Deseja mesmo deletar candidato?");
+      if (!resposta) {
+        return null
+      }
+
       this.candidatos = this.candidatos.filter( (candidato) => {
         return candidato.id !== nameId
+      } )
+
+      api.delete(`/api/candidatos/${nameId}`).then( () => {
+        console.log('candidato excluido')
+      }).catch( (err) => {
+        console.log(`Erro para excluir candidato: ${err.message}`)
       } )
     }
   }

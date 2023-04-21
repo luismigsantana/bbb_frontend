@@ -16,7 +16,7 @@
             </b-card-text>
 
             <b-card-footer>
-                <b-button @click="deleteCandidato()" class="align-self-end" href="#" variant="primary">Go somewhere</b-button>
+                <b-button @click="deleteCandidato()" class="align-self-start" href="#" variant="danger">Deletar</b-button>
             </b-card-footer>
             
         </b-card>
