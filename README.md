@@ -1,6 +1,6 @@
 # BBB frontend
 
-A aplicação espera consumir a API em http://127.0.0.1:8000, caso a porta seja diferente pode trocar a baseURL no arquivo api.js
+A aplicação espera consumir a API em http://127.0.0.1:8000, caso a url seja diferente crie o arquivo .env.local setando a variavel VUE_APP_BASE_URL=''
 
 A url de avatar foi tirada do GitHub das pessoas, podem testar com o seu.
 
